@@ -1,0 +1,46 @@
+﻿@model List<GTest.Data.Student>;
+@{
+    ViewData["Title"] = "Students";
+    Layout = "_Layout";
+
+    var no = 0;
+}
+
+<a asp-action="Create" class="btn btn-primary">Add Student</a>
+
+<table id="studentTable" class="table table-hover table-striped">
+    <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>School Year</th>
+        <th>Birth Date</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var student in Model)
+    {
+        no++;
+        <tr>
+            <td>@no</td>
+            <td>@student.FirstName</td>
+            <td>@student.LastName</td>
+            <td>@student.SchoolYear</td>
+            <td>@student.BirthDate.ToString("dd-MM-yyyy")</td>
+            <td>
+                <a asp-action="Update" asp-route-id="@student.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                <a asp-action="Delete" asp-route-id="@student.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $('#studentTable').DataTable();
+    </script>
+}
