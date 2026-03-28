@@ -54,7 +54,7 @@ namespace GTest.Controllers
                 FirstName = student.FirstName,
                 LastName = student.LastName,
                 SchoolYear = student.SchoolYear,
-                BirthDate = student.BirthDate.ToString("dd-MM-yyyy")
+                BirthDate = student.BirthDate.ToString("dd/MM/yyyy")
             };
 
             return View(model);
