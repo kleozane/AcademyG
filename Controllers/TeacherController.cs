@@ -34,7 +34,6 @@ namespace GTest.Controllers
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                SchoolYear = model.SchoolYear,
                 BirthDate = DateTime.ParseExact(model.BirthDate, "MM/dd/yyyy", null)
             };
 
@@ -54,7 +53,6 @@ namespace GTest.Controllers
                 Id = teacher.Id,
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
-                SchoolYear = teacher.SchoolYear,
                 BirthDate = teacher.BirthDate.ToString("dd/MM/yyyy")
             };
 
@@ -69,7 +67,6 @@ namespace GTest.Controllers
                 Id = model.Id,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                SchoolYear = model.SchoolYear,
                 BirthDate = DateTime.ParseExact(model.BirthDate, "MM/dd/yyyy", null)
             };
 
