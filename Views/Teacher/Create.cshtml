@@ -1,0 +1,52 @@
+﻿@model GTest.Models.Teacher.TeacherForCreation;
+@{
+    ViewData["Title"] = "Add Teacher";
+    Layout = "_Layout";
+}
+
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <br />
+            <h4>Add a New Teacher</h4>
+            <br />
+            <div class="row">
+                <div class="col-6">
+                    <label>First Name</label>
+                    <input type="text" asp-for="@Model.FirstName" class="form-control" /> <br />
+                </div>
+                <div class="col-6">
+                    <label>Last Name</label>
+                    <input type="text" asp-for="@Model.LastName" class="form-control" /> <br />
+                </div>
+            </div>
+            <div class="col-12">
+                <label>Birthday</label>
+                <input type="text" id="dataIme" asp-for="@Model.BirthDate" class="form-control" /> <br />
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <a asp-action="Index" class="btn btn-outline-primary"><i class="fas fa-arrow-left"></i> Back</a>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary float-end"><i class="fas fa-save"></i> Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+</form>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script>
+        $(function() {
+          $("#dataIme").datepicker();
+        });
+    </script>
+}
