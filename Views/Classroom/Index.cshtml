@@ -1,31 +1,31 @@
-﻿@model List<GTest.Data.Subject>;
+﻿@model List<GTest.Data.Classroom>;
 @{
-    ViewData["Title"] = "Subjects";
+    ViewData["Title"] = "Classrooms";
     Layout = "_Layout";
 
     var no = 0;
 }
 
-<a asp-action="Create" class="btn btn-primary">Add Subject</a>
+<a asp-action="Create" class="btn btn-primary">Add Classroom</a>
 
-<table id="subjectTable" class="table table-hover table-striped">
+<table id="classroomTable" class="table table-hover table-striped">
     <tr>
         <th>No</th>
         <th>Name</th>
-        <th>Category</th>
+        <th>Homeroom Teacher</th>
         <th>Actions</th>
     </tr>
 
-    @foreach (var subject in Model)
+    @foreach (var classroom in Model)
     {
         no++;
         <tr>
             <td>@no</td>
-            <td>@subject.Name</td>
-            <td>@subject.Category</td>
+            <td>@classroom.Name</td>
+            <td>@classroom.HomeroomTeacher.FirstName @classroom.HomeroomTeacher.LastName</td>
             <td>
-                <a asp-action="Update" asp-route-id="@subject.Id" class="btn btn-sm btn-outline-warning">Edit</a>
-                <a asp-action="Delete" asp-route-id="@subject.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                <a asp-action="Update" asp-route-id="@classroom.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                <a asp-action="Delete" asp-route-id="@classroom.Id" class="btn btn-sm btn-outline-danger">Delete</a>
             </td>
         </tr>
     }
@@ -37,6 +37,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-        $('#subjectTable').DataTable();
+        $('#classroomTable').DataTable();
     </script>
 }

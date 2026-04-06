@@ -32,7 +32,8 @@ namespace GTest.Controllers
         {
             var subject = new Subject
             {
-                Name = model.Name, 
+                Name = model.Name,
+                Category = model.Category
             };
 
             await _testContext.Subjects.AddAsync(subject);
@@ -49,6 +50,7 @@ namespace GTest.Controllers
             var model = new SubjectForEdit
             {
                 Name = subject.Name,
+                Category = subject.Category
             };
 
             return View(model);
@@ -61,6 +63,7 @@ namespace GTest.Controllers
             {
                 Id = model.Id,
                 Name = model.Name,
+                Category = model.Category
             };
 
             _testContext.Subjects.Update(subject);

@@ -1,0 +1,47 @@
+﻿@model GTest.Models.Classroom.ClassroomForCreation;
+@{
+    ViewData["Title"] = "Add Classroom";
+    Layout = "_Layout";
+}
+
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <br />
+            <h4>Add a New Classroom</h4>
+            <br />
+            <div class="row">
+                <div class="col-6">
+                    <label> Name</label>
+                    <input type="text" asp-for="@Model.Name" class="form-control" /> <br />
+                </div>
+                <div class="col-6">
+                    <label>Teacher</label>
+                    <select asp-for="@Model.HomeroomTeacherId" class="form-select form-select-md">
+                        @foreach (var t in Model.Teachers)
+                        {
+                            <option value="@t.Id">@t.FirstName @t.LastName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <a asp-action="Index" class="btn btn-outline-primary"><i class="fas fa-arrow-left"></i> Back</a>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary float-end"><i class="fas fa-save"></i> Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+</form>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+}

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GTest.Migrations
 {
     [DbContext(typeof(TestContext))]
-    [Migration("20260328212940_AddedSubjectTable")]
-    partial class AddedSubjectTable
+    [Migration("20260406125709_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,28 @@ namespace GTest.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("GTest.Data.Classroom", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("HomeroomTeacherId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HomeroomTeacherId");
+
+                    b.ToTable("Classrooms");
+                });
 
             modelBuilder.Entity("GTest.Data.Student", b =>
                 {
@@ -60,6 +82,10 @@ namespace GTest.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -88,12 +114,20 @@ namespace GTest.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SchoolYear")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("GTest.Data.Classroom", b =>
+                {
+                    b.HasOne("GTest.Data.Teacher", "HomeroomTeacher")
+                        .WithMany()
+                        .HasForeignKey("HomeroomTeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HomeroomTeacher");
                 });
 #pragma warning restore 612, 618
         }

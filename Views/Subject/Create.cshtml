@@ -13,8 +13,16 @@
             <br />
             <div class="row">
                 <div class="col-6">
-                    <label> Name</label>
+                    <label>Name</label>
                     <input type="text" asp-for="@Model.Name" class="form-control" /> <br />
+                </div>
+                <div class="col-6">
+                    <label>Category</label>
+                    <select asp-for="@Model.Category" class="form-select form-select-md">
+                        <option value="STEM">STEM</option>
+                        <option value="Social Studies">Social Studies</option>
+                        <option value="Base Curriculum">Base Curriculum</option>
+                    </select>
                 </div>
             </div>
             <div class="row">

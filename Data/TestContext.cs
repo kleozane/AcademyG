@@ -14,5 +14,6 @@ namespace GTest.Data
 
         public DbSet<Subject> Subjects { get; set; } 
 
+        public DbSet<Classroom> Classrooms { get; set; }
     }
 }

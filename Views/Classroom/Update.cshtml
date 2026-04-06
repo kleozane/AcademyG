@@ -1,0 +1,39 @@
+﻿@model GTest.Models.Classroom.ClassroomForEdit
+@{
+    ViewData["Title"] = "Edit Classroom";
+    Layout = "_Layout";
+}
+
+<form asp-action="Update">
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <br />
+            <h4>Update Classroom <a class="text-primary text-decoration-none">@Model.Name</a></h4>
+            <br />
+            <div class="row">
+                <div class="col-6">
+                    <label> Name</label>
+                    <input type="text" asp-for="Name" class="form-control" /> <br />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <a asp-action="Index" class="btn btn-outline-primary"><i class="fas fa-arrow-left"></i> Back</a>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary float-end"><i class="fas fa-save"></i> Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+</form>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+}
