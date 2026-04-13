@@ -17,6 +17,15 @@
                     <label> Name</label>
                     <input type="text" asp-for="Name" class="form-control" /> <br />
                 </div>
+                <div class="col-6">
+                    <label>Teacher</label>
+                    <select asp-for="@Model.HomeroomTeacherId" class="form-select form-select-md">
+                        @foreach (var t in Model.Teachers)
+                        {
+                            <option value="@t.Id">@t.FirstName @t.LastName</option>
+                        }
+                    </select>
+                </div>
             </div>
             <div class="row">
                 <div class="col-6">

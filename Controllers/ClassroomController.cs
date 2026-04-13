@@ -54,11 +54,14 @@ namespace GTest.Controllers
         public async Task<IActionResult> Update(int id)
         {
             var classroom = await _testContext.Classrooms.Where(c => c.Id == id).FirstOrDefaultAsync();
+            var teachers = _testContext.Teachers.Where(t => t.ClassroomId == null || t.ClassroomId == id).ToList();
 
             var model = new ClassroomForEdit
             {
                 Id = classroom?.Id ?? 0,
                 Name = classroom?.Name,
+                HomeroomTeacherId = classroom?.HomeroomTeacherId,
+                Teachers = teachers
             };
 
             return View(model);
@@ -71,6 +74,7 @@ namespace GTest.Controllers
             {
                 Id = model.Id,
                 Name = model.Name,
+                HomeroomTeacherId = model.HomeroomTeacherId
             };
 
             _testContext.Classrooms.Update(classroom);
