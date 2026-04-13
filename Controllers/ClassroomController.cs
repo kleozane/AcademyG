@@ -22,7 +22,7 @@ namespace GTest.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var teachers = _testContext.Teachers.ToList();
+            var teachers = _testContext.Teachers.Where(t => t.ClassroomId == null).ToList();
             var model = new ClassroomForCreation
             {
                 Teachers = teachers
@@ -38,8 +38,13 @@ namespace GTest.Controllers
                 Name = model.Name,
                 HomeroomTeacherId = model.HomeroomTeacherId
             };
-
+            
             await _testContext.Classrooms.AddAsync(classroom);
+            await _testContext.SaveChangesAsync();
+
+            var teacher = await _testContext.Teachers.Where(t => t.Id == model.HomeroomTeacherId).FirstOrDefaultAsync();
+            teacher.ClassroomId = classroom.Id;
+            _testContext.Teachers.Update(teacher);
             await _testContext.SaveChangesAsync();
 
             return RedirectToAction("Index");

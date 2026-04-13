@@ -4,6 +4,7 @@ using GTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GTest.Migrations
 {
     [DbContext(typeof(TestContext))]
-    partial class TestContextModelSnapshot : ModelSnapshot
+    [Migration("20260413105115_TeacherClassroom")]
+    partial class TeacherClassroom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +33,7 @@ namespace GTest.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("HomeroomTeacherId")
+                    b.Property<int>("HomeroomTeacherId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -38,10 +41,6 @@ namespace GTest.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HomeroomTeacherId")
-                        .IsUnique()
-                        .HasFilter("[HomeroomTeacherId] IS NOT NULL");
 
                     b.ToTable("Classrooms");
                 });
@@ -118,22 +117,25 @@ namespace GTest.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClassroomId")
+                        .IsUnique()
+                        .HasFilter("[ClassroomId] IS NOT NULL");
+
                     b.ToTable("Teachers");
-                });
-
-            modelBuilder.Entity("GTest.Data.Classroom", b =>
-                {
-                    b.HasOne("GTest.Data.Teacher", "HomeroomTeacher")
-                        .WithOne("Classroom")
-                        .HasForeignKey("GTest.Data.Classroom", "HomeroomTeacherId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("HomeroomTeacher");
                 });
 
             modelBuilder.Entity("GTest.Data.Teacher", b =>
                 {
-                    b.Navigation("Classroom")
+                    b.HasOne("GTest.Data.Classroom", "Classroom")
+                        .WithOne("HomeroomTeacher")
+                        .HasForeignKey("GTest.Data.Teacher", "ClassroomId");
+
+                    b.Navigation("Classroom");
+                });
+
+            modelBuilder.Entity("GTest.Data.Classroom", b =>
+                {
+                    b.Navigation("HomeroomTeacher")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -22,7 +22,17 @@
         <tr>
             <td>@no</td>
             <td>@classroom.Name</td>
-            <td>@classroom.HomeroomTeacher.FirstName @classroom.HomeroomTeacher.LastName</td>
+            <td>
+                @if (classroom.HomeroomTeacher != null)
+                {
+                    <b>@classroom.HomeroomTeacher.FirstName @classroom.HomeroomTeacher.LastName</b>
+                }
+                else
+                {
+                    <i>No homeroom teacher</i>
+                }
+                
+            </td>
             <td>
                 <a asp-action="Update" asp-route-id="@classroom.Id" class="btn btn-sm btn-outline-warning">Edit</a>
                 <a asp-action="Delete" asp-route-id="@classroom.Id" class="btn btn-sm btn-outline-danger">Delete</a>
