@@ -15,6 +15,7 @@ namespace GTest.Data
         public DbSet<Subject> Subjects { get; set; }
 
         public DbSet<Classroom> Classrooms { get; set; }
+        public DbSet<TeacherSubject> TeacherSubjects { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,6 +31,24 @@ namespace GTest.Data
                 .WithOne(t => t.HomeroomTeacher)
                 .HasForeignKey<Classroom>(t => t.HomeroomTeacherId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Classroom>()
+                .HasMany(c => c.Students)
+                .WithOne(s => s.Classroom)
+                .HasForeignKey(s => s.ClassroomId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<TeacherSubject>().HasKey(ts => new { ts.TeacherId, ts.SubjectId});
+
+            modelBuilder.Entity<Teacher>()
+                .HasMany(t => t.TeacherSubjects)
+                .WithOne(ts => ts.Teacher)
+                .HasForeignKey(ts => ts.TeacherId);
+
+            modelBuilder.Entity<Subject>()
+                .HasMany(t => t.TeacherSubjects)
+                .WithOne(ts => ts.Subject)
+                .HasForeignKey(ts => ts.SubjectId);
         }
 
     }

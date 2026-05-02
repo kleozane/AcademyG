@@ -4,6 +4,7 @@ using GTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GTest.Migrations
 {
     [DbContext(typeof(TestContext))]
-    partial class TestContextModelSnapshot : ModelSnapshot
+    [Migration("20260424150235_StudentClasroom")]
+    partial class StudentClasroom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,21 +129,6 @@ namespace GTest.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("GTest.Data.TeacherSubject", b =>
-                {
-                    b.Property<int?>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TeacherId", "SubjectId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("TeacherSubjects");
-                });
-
             modelBuilder.Entity("GTest.Data.Classroom", b =>
                 {
                     b.HasOne("GTest.Data.Teacher", "HomeroomTeacher")
@@ -161,41 +149,15 @@ namespace GTest.Migrations
                     b.Navigation("Classroom");
                 });
 
-            modelBuilder.Entity("GTest.Data.TeacherSubject", b =>
-                {
-                    b.HasOne("GTest.Data.Subject", "Subject")
-                        .WithMany("TeacherSubjects")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GTest.Data.Teacher", "Teacher")
-                        .WithMany("TeacherSubjects")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Subject");
-
-                    b.Navigation("Teacher");
-                });
-
             modelBuilder.Entity("GTest.Data.Classroom", b =>
                 {
                     b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("GTest.Data.Subject", b =>
-                {
-                    b.Navigation("TeacherSubjects");
                 });
 
             modelBuilder.Entity("GTest.Data.Teacher", b =>
                 {
                     b.Navigation("Classroom")
                         .IsRequired();
-
-                    b.Navigation("TeacherSubjects");
                 });
 #pragma warning restore 612, 618
         }

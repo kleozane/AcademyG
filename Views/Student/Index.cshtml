@@ -11,8 +11,8 @@
 <table id="studentTable" class="table table-hover table-striped">
     <tr>
         <th>No</th>
-        <th>First Name</th>
-        <th>Last Name</th>
+        <th>Full Name</th>
+        <th>Classroom</th>
         <th>School Year</th>
         <th>Birth Date</th>
         <th>Actions</th>
@@ -23,9 +23,9 @@
         no++;
         <tr>
             <td>@no</td>
-            <td>@student.FirstName</td>
-            <td>@student.LastName</td>
-            <td>@student.SchoolYear</td>
+            <td>@student.FirstName @student.LastName</td>
+            <td>@student.Classroom.Name</td>
+            <td>Year @student.SchoolYear</td>
             <td>@student.BirthDate.ToString("dd-MM-yyyy")</td>
             <td>
                 <a asp-action="Update" asp-route-id="@student.Id" class="btn btn-sm btn-outline-warning">Edit</a>

@@ -15,7 +15,7 @@ namespace GTest.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var students = await _testContext.Students.ToListAsync();
+            var students = await _testContext.Students.Include(s => s.Classroom).ToListAsync();
             return View(students);
         }
 
@@ -23,6 +23,7 @@ namespace GTest.Controllers
         public async Task<IActionResult> Create()
         {
             var model = new StudentForCreation();
+            model.Classrooms = await _testContext.Classrooms.ToListAsync();
             return View(model);
         }
 
@@ -34,6 +35,7 @@ namespace GTest.Controllers
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 SchoolYear = model.SchoolYear,
+                ClassroomId = model.ClassroomId,
                 BirthDate = DateTime.ParseExact(model.BirthDate, "MM/dd/yyyy", null)
             };
 
@@ -47,6 +49,7 @@ namespace GTest.Controllers
         public async Task<IActionResult> Update(int id)
         {
             var student = await _testContext.Students.Where(s => s.Id == id).FirstOrDefaultAsync();
+            var classrooms = await _testContext.Classrooms.ToListAsync();
 
             var model = new StudentForEdit
             {
@@ -54,6 +57,8 @@ namespace GTest.Controllers
                 FirstName = student.FirstName,
                 LastName = student.LastName,
                 SchoolYear = student.SchoolYear,
+                ClassroomId = student.ClassroomId,
+                Classrooms = classrooms,
                 BirthDate = student.BirthDate.ToString("dd/MM/yyyy")
             };
 
@@ -69,6 +74,7 @@ namespace GTest.Controllers
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 SchoolYear = model.SchoolYear,
+                ClassroomId = model.ClassroomId,
                 BirthDate = DateTime.ParseExact(model.BirthDate, "MM/dd/yyyy", null)
             };
 

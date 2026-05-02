@@ -10,5 +10,7 @@ namespace GTest.Data
         [ForeignKey("HomeroomTeacherId")]
         public int? HomeroomTeacherId { get; set; }
         public Teacher HomeroomTeacher { get; set; }
+
+        public List<Student> Students { get; set; }
     }
 }

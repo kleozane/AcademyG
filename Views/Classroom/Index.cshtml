@@ -34,10 +34,43 @@
                 
             </td>
             <td>
+                <button type="button" onclick="getStudents(@classroom.Id)" class="btn btn-sm btn-outline-info">
+                    View
+                </button>
                 <a asp-action="Update" asp-route-id="@classroom.Id" class="btn btn-sm btn-outline-warning">Edit</a>
                 <a asp-action="Delete" asp-route-id="@classroom.Id" class="btn btn-sm btn-outline-danger">Delete</a>
             </td>
         </tr>
+
+        <!-- Modal -->
+        <div class="modal fade" id="studentModal-@classroom.Id" tabindex="-1" role="dialog" aria-labelledby="studentModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">@classroom.Name students</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Full Name</th>
+                                    <th>School Year</th>
+                                    <th>Birth Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentTableBody-@classroom.Id">
+                                <!-- Rows injected by getStudents() -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 </table>
 
@@ -48,5 +81,41 @@
 
     <script>
         $('#classroomTable').DataTable();
+    </script>
+
+    <script>
+        function getStudents(classroomId) {
+            fetch('/Classroom/GetStudents/' + classroomId)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    // Build the table rows
+                    const tbody = document.getElementById('studentTableBody-' + classroomId);
+                    tbody.innerHTML = ''; // clear previous content
+
+                    if (data.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="4" class="text-center"><i>No students in this classroom</i></td></tr>';
+                    } else {
+                        data.forEach((student, index) => {
+                            const row = `
+                                <tr>
+                                    <td>${index + 1}</td>
+                                    <td>${student.firstName} ${student.lastName}</td>
+                                    <td>Year ${student.schoolYear}</td>
+                                    <td>${student.birthDate}</td>
+                                </tr>
+                            `;
+                            tbody.innerHTML += row;
+                        });
+                    }
+
+                    // Show the modal
+                    const modal = new bootstrap.Modal(document.getElementById('studentModal-' + classroomId));
+                    modal.show();
+                })
+                .catch(error => console.error('Fetch error:', error));
+        }
     </script>
 }

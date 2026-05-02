@@ -95,5 +95,22 @@ namespace GTest.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+        public async Task<JsonResult> GetStudents(int classroomId)
+        {
+            var students = await _testContext.Students
+                .Where(s => s.ClassroomId == classroomId)
+                .Select(s => new {
+                    s.Id,
+                    s.FirstName,
+                    s.LastName,
+                    s.SchoolYear,
+                    BirthDate = s.BirthDate.ToString("dd-MM-yyyy")
+                })
+                .ToListAsync();
+
+            return Json(students);
+        }
     }
 }

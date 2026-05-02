@@ -24,6 +24,7 @@ namespace GTest.Controllers
         public async Task<IActionResult> Create()
         {
             var model = new TeacherForCreation();
+            model.Subjects = await _testContext.Subjects.ToListAsync();
             return View(model);
         }
 
@@ -39,6 +40,18 @@ namespace GTest.Controllers
 
             await _testContext.Teachers.AddAsync(teacher);
             await _testContext.SaveChangesAsync();
+
+            foreach (var id in model.SubjectIds)
+            {
+                var teacherSubject = new TeacherSubject
+                {
+                    TeacherId = teacher.Id,
+                    SubjectId = id
+                };
+                await _testContext.TeacherSubjects.AddAsync(teacherSubject);
+                await _testContext.SaveChangesAsync();
+            }
+            
 
             return RedirectToAction("Index");
         }

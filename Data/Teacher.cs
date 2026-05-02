@@ -12,5 +12,8 @@ namespace GTest.Data
         [ForeignKey("ClassroomId")]
         public int? ClassroomId { get; set; }
         public Classroom Classroom { get; set; }
+
+
+        public List<TeacherSubject> TeacherSubjects { get; set; }
     }
 }

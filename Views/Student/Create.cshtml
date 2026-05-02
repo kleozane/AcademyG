@@ -21,9 +21,20 @@
                     <input type="text" asp-for="@Model.LastName" class="form-control" /> <br />
                 </div>
             </div>
-            <div class="col-12">
-                <label>School Year</label>
-                <input type="number" asp-for="@Model.SchoolYear" class="form-control" /> <br />
+            <div class="row">
+                <div class="col-6">
+                    <label>School Year</label>
+                    <input type="number" asp-for="@Model.SchoolYear" class="form-control" /> <br />
+                </div>
+                <div class="col-6">
+                    <label>Classroom</label>
+                    <select asp-for="@Model.ClassroomId" class="form-select form-select-md">
+                        @foreach (var c in Model.Classrooms)
+                        {
+                            <option value="@c.Id">@c.Name</option>
+                        }
+                    </select>
+                </div>
             </div>
             <div class="col-12">
                 <label>Birthday</label>
